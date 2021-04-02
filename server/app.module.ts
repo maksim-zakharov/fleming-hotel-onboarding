@@ -6,6 +6,8 @@ import { HotelEntity } from './entities/hotel.entity';
 import { RoomEntity } from './entities/room.entity';
 import { StaffMemberEntity } from './entities/staff-member.entity';
 import { UserEntity } from './entities/user.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,6 +27,9 @@ import { UserEntity } from './entities/user.entity';
       StaffMemberEntity,
       UserEntity,
     ]),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
