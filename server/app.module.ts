@@ -20,6 +20,10 @@ import { join } from 'path';
       database: process.env.POSTGRES_DB || 'fleming',
       autoLoadEntities: true,
       synchronize: true,
+      ssl:
+        process.env.NODE_ENV === 'production'
+          ? { rejectUnauthorized: false }
+          : false,
     }),
     TypeOrmModule.forFeature([
       HotelEntity,
