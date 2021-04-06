@@ -8,7 +8,7 @@ import { i18nContext } from './contexts/i18n.context';
 import { useContext, useState } from 'react';
 
 const App = () => {
-  const [lang, setLang] = useState(localStorage.getItem('language') || 'en');
+  const [lang, setLang] = useState('en');
   const i18n = useContext(i18nContext);
 
   let translate = (key: string): string => {
