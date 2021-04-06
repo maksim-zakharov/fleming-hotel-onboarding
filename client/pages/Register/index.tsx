@@ -14,7 +14,6 @@ import MemberDetails from './MemberDetails';
 import Uploader from '../../components/Upload';
 
 const Index = () => {
-
   const [state, setState] = useState<any>({
     contractedHotels: [],
     members: [],
@@ -72,10 +71,12 @@ const Index = () => {
   };
 
   const register = async () => {
-    const { error } = await api.register(state);
+    const { id, error } = await api.register(state);
     if (error) {
       NotificationService.error(error.message);
     } else {
+      await api.uploadCrFiles(id, state.crFiles);
+      await api.uploadHotelFiles(id, state.hotelsFiles);
       NotificationService.success('Hotel successfully registered');
     }
   };
@@ -126,7 +127,10 @@ const Index = () => {
             value={legalCompanyName}
             label="Legal Company Name (as written on CR)"
             onInput={(text) =>
-              setState((prevState) => ({ ...prevState, legalCompanyName: text }))
+              setState((prevState) => ({
+                ...prevState,
+                legalCompanyName: text,
+              }))
             }
           />
           <Input
@@ -202,7 +206,10 @@ const Index = () => {
             value={focalPhoneNumber}
             label="Focal Point Phone Number"
             onInput={(text) =>
-              setState((prevState) => ({ ...prevState, focalPhoneNumber: text }))
+              setState((prevState) => ({
+                ...prevState,
+                focalPhoneNumber: text,
+              }))
             }
           />
           <Uploader

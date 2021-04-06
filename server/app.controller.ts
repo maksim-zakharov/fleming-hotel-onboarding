@@ -4,13 +4,15 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   UploadedFile,
-
+  UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { RegisterHotelDto } from './dto/register-hotel.dto';
 import { validate } from 'class-validator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller()
 export class AppController {
@@ -29,5 +31,17 @@ export class AppController {
       throw new HttpException(errors[0].toString(), HttpStatus.OK);
     }
     return this.appService.registerHotel(dto);
+  }
+
+  @Post('/:id/crFiles')
+  @UseInterceptors(FileInterceptor('files'))
+  uploadCrFiles(@Param() { id }, @UploadedFile() files) {
+    return this.appService.uploadCrFiles(id, files);
+  }
+
+  @Post('/:id/hotelsFiles')
+  @UseInterceptors(FileInterceptor('files'))
+  async uploadHotelFiles(@Param() { id }, @UploadedFile() files) {
+    return this.appService.uploadHotelFiles(id, files);
   }
 }

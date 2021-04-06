@@ -53,11 +53,17 @@ export class HotelEntity extends BaseEntity {
   })
   signatoryEmail: string;
 
-  // @Column({
-  //   type: 'text',
-  // })
-  // crUrls: string[];
-  // Focal
+  @Column({
+    type: 'text',
+    nullable: true
+  })
+  crFileUrl: string;
+
+  @Column({
+    type: 'text',
+    nullable: true
+  })
+  hotelFileUrl: string;
 
   @Column({
     type: 'text',

@@ -4,6 +4,7 @@ import { HotelEntity } from './entities/hotel.entity';
 import { StaffMemberEntity } from './entities/staff-member.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
+import { S3Service } from './s3.service';
 
 @Injectable()
 export class AppService {
@@ -12,6 +13,7 @@ export class AppService {
     private readonly repository: Repository<HotelEntity>,
     @InjectRepository(StaffMemberEntity)
     private readonly membersRepository: Repository<StaffMemberEntity>,
+    private readonly s3Service: S3Service,
   ) {}
 
   async registerHotel(dto: RegisterHotelDto) {
@@ -78,5 +80,25 @@ export class AppService {
     );
 
     return this.repository.save(newHotel);
+  }
+
+  async uploadCrFiles(hotelId: number, file: any) {
+    const existHotel = await this.repository.findOne(hotelId);
+    if (!existHotel) {
+      throw new HttpException(`The hotel is not registered`, HttpStatus.OK);
+    }
+    const { Location } = await this.s3Service.upload(hotelId, 'cr', file);
+    existHotel.crFileUrl = Location;
+    await this.repository.save(existHotel);
+  }
+
+  async uploadHotelFiles(hotelId: number, file: any) {
+    const existHotel = await this.repository.findOne(hotelId);
+    if (!existHotel) {
+      throw new HttpException(`The hotel is not registered`, HttpStatus.OK);
+    }
+    const { Location } = await this.s3Service.upload(hotelId, 'hotel', file);
+    existHotel.hotelFileUrl = Location;
+    await this.repository.save(existHotel);
   }
 }
