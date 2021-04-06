@@ -12,8 +12,7 @@ export class AppService {
     private readonly repository: Repository<HotelEntity>,
     @InjectRepository(StaffMemberEntity)
     private readonly membersRepository: Repository<StaffMemberEntity>,
-  ) {
-  }
+  ) {}
 
   async registerHotel(dto: RegisterHotelDto) {
     if (!dto.members?.length || dto.members.length < 2) {
@@ -31,17 +30,7 @@ export class AppService {
     }
 
     const existHotel = await this.repository.findOne({
-      where: [
-        {
-          name: dto.name,
-        },
-        {
-          nameArabic: dto.nameArabic,
-        },
-        {
-          website: dto.website,
-        },
-      ],
+      where: { name: dto.name },
     });
     if (existHotel) {
       throw new HttpException(`The hotel is already registered`, HttpStatus.OK);
@@ -58,7 +47,10 @@ export class AppService {
       ...new Set(dto.members.map((member) => member.phoneNumber)),
     ];
     if (uniquePhoneNumbers.length < dto.members.length) {
-      throw new HttpException(`Members phone number must be unique`, HttpStatus.OK);
+      throw new HttpException(
+        `Members phone number must be unique`,
+        HttpStatus.OK,
+      );
     }
 
     const existMembers = await this.membersRepository.find({

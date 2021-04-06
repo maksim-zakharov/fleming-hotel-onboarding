@@ -27,6 +27,7 @@ module.exports = {
       chunks: ['index'],
     }),
     new CleanWebpackPlugin({
+      dangerouslyAllowCleanPatternsOutsideProject: true,
       verbose: true,
       cleanStaleWebpackAssets: true,
     }),

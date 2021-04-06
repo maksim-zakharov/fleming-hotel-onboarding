@@ -1,10 +1,16 @@
-import { Column, Entity, BaseEntity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  BaseEntity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { StaffMemberEntity } from './staff-member.entity';
-import { v4 as uuid4 } from 'uuid';
+import { RoomEntity } from './room.entity';
 
 @Entity('hotels')
 export class HotelEntity extends BaseEntity {
-  @PrimaryGeneratedColumn ({
+  @PrimaryGeneratedColumn({
     type: 'int',
   })
   public id: string;
@@ -19,62 +25,21 @@ export class HotelEntity extends BaseEntity {
     unique: true,
     type: 'varchar',
   })
-  nameArabic: string;
+  legalCompanyName: string;
 
   @Column({
     unique: true,
     type: 'varchar',
   })
-  website: string;
-
-  @Column({
-    type: 'varchar',
-  })
-  governorate: string;
-
-  @Column({
-    type: 'varchar',
-  })
-  city: string;
-
-  @Column({
-    type: 'int',
-  })
-  rating: number;
-
-  @Column({
-    type: 'text',
-  })
-  description: string;
-
-  @Column({
-    type: 'text',
-  })
-  descriptionArabic: string;
-  // Legal
-
-  @Column({
-    type: 'text',
-  })
-  legalName: string;
-
-  @Column({
-    type: 'text',
-  })
   crNumber: string;
 
   @Column({
-    type: 'text',
+    type: 'varchar',
   })
   crPerson: string;
 
   @Column({
-    type: 'text',
-  })
-  crDetails: string;
-
-  @Column({
-    type: 'text',
+    type: 'varchar',
   })
   signatoryName: string;
 
@@ -92,22 +57,6 @@ export class HotelEntity extends BaseEntity {
   //   type: 'text',
   // })
   // crUrls: string[];
-  // Bank
-
-  @Column({
-    type: 'text',
-  })
-  bankName: string;
-
-  @Column({
-    type: 'text',
-  })
-  branch: string;
-
-  @Column({
-    type: 'text',
-  })
-  accountNumber: string;
   // Focal
 
   @Column({
@@ -127,12 +76,7 @@ export class HotelEntity extends BaseEntity {
 
   @OneToMany(() => StaffMemberEntity, (v) => v.hotel, { cascade: true })
   members: StaffMemberEntity[];
-  // roomTypes: {
-  //   type: string;
-  //   beds: number;
-  //   roomsCount: number;
-  //   price: number;
-  //   description: string;
-  //   descriptionArabic: string;
-  // }[];
+
+  @OneToMany(() => RoomEntity, (v) => v.hotel, { cascade: true })
+  contractedHotels: RoomEntity[];
 }

@@ -17,32 +17,14 @@ export class RegisterHotelDto {
   @IsNotEmpty()
   name: string;
   @IsNotEmpty()
-  nameArabic: string;
-  @IsNotEmpty()
-  @IsFQDN()
-  website: string;
-  @IsNotEmpty()
-  governorate: string;
-  @IsNotEmpty()
-  city: string;
-  @IsNotEmpty()
-  @IsNumber()
-  rating: number;
-  @IsNotEmpty()
-  description: string;
-  @IsNotEmpty()
-  descriptionArabic: string;
-  // Legal
-  @IsNotEmpty()
-  legalName: string;
+  legalCompanyName: string;
   @IsNotEmpty()
   crNumber: string;
   @IsNotEmpty()
   crPerson: string;
   @IsNotEmpty()
-  crDetails: string;
-  @IsNotEmpty()
   signatoryName: string;
+
   @IsNotEmpty()
   @IsMobilePhone()
   signatoryPhoneNumber: string;
@@ -53,13 +35,10 @@ export class RegisterHotelDto {
   @IsArray()
   @ArrayNotEmpty()
   crFiles: File[];
-  // Bank
   @IsNotEmpty()
-  bankName: string;
-  @IsNotEmpty()
-  branch: string;
-  @IsNotEmpty()
-  accountNumber: string;
+  @IsArray()
+  @ArrayNotEmpty()
+  hotelsFiles: File[];
   // Focal
   @IsNotEmpty()
   focalName: string;
@@ -77,5 +56,5 @@ export class RegisterHotelDto {
   @IsNotEmpty()
   @IsArray()
   @ArrayNotEmpty()
-  roomTypes: RegisterRoomTypesDto[];
+  contractedHotels: RegisterRoomTypesDto[];
 }

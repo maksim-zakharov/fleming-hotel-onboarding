@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { HotelEntity } from './hotel.entity';
 
 @Entity('rooms')
@@ -12,41 +12,13 @@ export class RoomEntity extends BaseEntity {
     unique: true,
     type: 'varchar',
   })
-  type: string;
+  name: string;
 
   @Column({
     type: 'varchar',
   })
-  typeArabic: string;
+  inventory: string;
 
-  @Column({
-    type: 'int',
-  })
-  beds: string;
-
-  @Column({
-    type: 'int',
-  })
-  rooms: number;
-
-  @Column({
-    type: 'decimal',
-    precision: 5,
-    scale: 2,
-    default: 0,
-  })
-  price: number;
-
-  @Column({
-    type: 'text',
-  })
-  description: string;
-
-  @Column({
-    type: 'text',
-  })
-  descriptionArabic: string;
-
-  // @ManyToOne(() => HotelEntity, (v) => v.rooms, { onDelete: 'CASCADE' })
-  // hotel: HotelEntity;
+  @ManyToOne(() => HotelEntity, (v) => v.contractedHotels, { onDelete: 'CASCADE' })
+  hotel: HotelEntity;
 }

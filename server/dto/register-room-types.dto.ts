@@ -1,20 +1,8 @@
-import {
-  IsDecimal,
-  IsNotEmpty, IsNumber,
-
-} from 'class-validator';
+import { IsNotEmpty} from 'class-validator';
 
 export class RegisterRoomTypesDto {
   @IsNotEmpty()
-  type: string;
-  @IsNotEmpty() @IsNumber()
-  beds: number;
-  @IsNotEmpty() @IsNumber()
-  roomsCount: number;
-  @IsDecimal()
-  price: number;
+  name: string;
   @IsNotEmpty()
-  description: string;
-  @IsNotEmpty()
-  descriptionArabic: string;
+  inventory: string;
 }
