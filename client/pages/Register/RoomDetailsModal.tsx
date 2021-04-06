@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Modal } from 'antd';
 import { useState } from 'react';
-import Select from '../../components/Select';
 import Input from '../../components/Input';
 import { RegisterRoomTypesDto } from '../../services/dto/register-room-types.dto';
 import Button from '../../components/Button';
@@ -9,39 +8,25 @@ import Button from '../../components/Button';
 const RoomDetailsModal = (props) => {
   const { isVisible, onOk, onClose } = props;
   const [details, setDetails] = useState<RegisterRoomTypesDto>({
-    beds: 0,
-    description: '',
-    descriptionArabic: '',
-    price: 0,
-    roomsCount: 0,
-    type: '',
+    name: '',
+    inventory: '',
   });
 
   const addItem = () => {
     onOk(details);
     setDetails({
-      beds: 0,
-      description: '',
-      descriptionArabic: '',
-      price: 0,
-      roomsCount: 0,
-      type: '',
+      name: '',
+      inventory: '',
     });
   };
 
   const onCancel = () => {
     setDetails({
-      beds: 0,
-      description: '',
-      descriptionArabic: '',
-      price: 0,
-      roomsCount: 0,
-      type: '',
+      name: '',
+      inventory: '',
     });
     onClose();
   };
-
-  const roomTypes = [];
 
   const renderFooter = () => {
     return (
@@ -69,52 +54,19 @@ const RoomDetailsModal = (props) => {
         Sahala access to.
       </div>
       <form>
-        <Select label="Room Type" value={details.type} options={roomTypes}
-                onChange={val => setDetails((prevState) => ({ ...prevState, type: val }))}
-        />
         <Input
-          value={details.beds}
-          type="number"
-          label="Number of Beds"
+          value={details.name}
+          label="Hotel Name"
           onInput={(text) =>
-            setDetails((prevState) => ({ ...prevState, beds: text }))
+            setDetails((prevState) => ({ ...prevState, name: text }))
           }
         />
         <Input
-          value={details.roomsCount}
-          type="number"
-          label="Number of Rooms of this Type"
+          value={details.inventory}
+          label="Expected Hotel Inventory"
           onInput={(text) =>
-            setDetails((prevState) => ({ ...prevState, roomsCount: text }))
+            setDetails((prevState) => ({ ...prevState, inventory: text }))
           }
-        />
-        <Input
-          value={details.price}
-          type="number"
-          label="Price (OMR)"
-          onInput={(text) =>
-            setDetails((prevState) => ({ ...prevState, price: text }))
-          }
-        />
-        <Input
-          value={details.description}
-          label="Room Description"
-          type="textarea"
-          onInput={(text) =>
-            setDetails((prevState) => ({ ...prevState, description: text }))
-          }
-        />
-        <Input
-          value={details.descriptionArabic}
-          label="Room Description (Arabic)"
-          onInput={(text) =>
-            setDetails((prevState) => ({
-              ...prevState,
-              descriptionArabic: text,
-            }))
-          }
-          direction={true}
-          type="textarea"
         />
       </form>
     </Modal>

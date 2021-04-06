@@ -14,28 +14,12 @@ const RoomDetails: React.FC<{ details: RegisterRoomTypesDto[]; onDelete }> = ({
         details.map((item, key) => (
           <div className="details-container" key={key}>
             <div className="row">
-              <div>Room Type:</div>
-              <div>{item.type}</div>
+              <div>Hotel Name</div>
+              <div>{item.name}</div>
             </div>
             <div className="row">
-              <div>Number of Beds</div>
-              <div>{item.beds}</div>
-            </div>
-            <div className="row">
-              <div>Number of Room of this Type</div>
-              <div>{item.roomsCount}</div>
-            </div>
-            <div className="row">
-              <div>Price</div>
-              <div>{item.price}</div>
-            </div>
-            <div className="row">
-              <div>Description</div>
-              <div>{item.description}</div>
-            </div>
-            <div className="row">
-              <div>Description (Arabic)</div>
-              <div>{item.descriptionArabic}</div>
+              <div>Expected Hotel Inventory</div>
+              <div>{item.inventory}</div>
             </div>
             <button className="delete-btn" onClick={() => onDelete(item)}>
               Delete
