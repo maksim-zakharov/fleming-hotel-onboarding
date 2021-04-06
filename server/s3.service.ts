@@ -6,10 +6,9 @@ import { S3 } from 'aws-sdk';
 export class S3Service {
 
   upload(hotelId, type, file): Promise<S3.ManagedUpload.SendData> {
-    const bucketS3 = 'fleming-files';
     const parts = file.originalname.split('.');
     const fileExtension = parts[parts.length - 1];
-    return this.uploadS3(file.buffer, bucketS3, `${hotelId}-${type}.${fileExtension}`);
+    return this.uploadS3(file.buffer, process.env.AWS_S3_BUCKET, `${hotelId}-${type}.${fileExtension}`);
   }
 
   async uploadS3(file, bucket, name): Promise<S3.ManagedUpload.SendData> {
